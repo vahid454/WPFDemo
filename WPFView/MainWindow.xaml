@@ -1,0 +1,60 @@
+﻿<Window x:Class="WPFView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFView"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="620" Width="940">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Row for the heading -->
+            <RowDefinition Height="*"/>
+            <!-- Row for the WPF View -->
+        </Grid.RowDefinitions>
+
+        <!-- Sort ComboBox -->
+        <ComboBox x:Name="SortComboBox" Grid.Row="0" Margin="10,10,803,78">
+            <ComboBoxItem Content="Sort by Name" Tag="Name"/>
+            <ComboBoxItem Content="Sort by Country" Tag="Country"/>
+        </ComboBox>
+
+        <!-- Sort Button -->
+        <Button Content="Sort" Click="SortButton_Click" Margin="158,10,685,78"/>
+
+        <!-- Filter ComboBox -->
+        <ComboBox x:Name="FilterComboBox" ItemsSource="{Binding CountryOptions}" Grid.Row="0" Margin="705,12,33,0"
+
+                  SelectionChanged="FilterComboBox_SelectionChanged"
+                  VerticalAlignment="Top" Height="20"/>
+
+        <!-- Heading -->
+        <TextBlock Text="WPF Application" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0"/>
+        <!-- Scroll View -->
+        <ScrollViewer  Grid.Row="1">
+            <!-- Person -->
+            <ItemsControl ItemsSource="{Binding Persons}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding RowCount}" Columns="4" />
+                        <!-- Adjust Rows and Columns as needed -->
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="2" Margin="6" Height="90" Width="210">
+                            <StackPanel>
+                                <TextBlock Background="LightGray" FontSize="13" Text="{Binding Name}" HorizontalAlignment="Center" Margin="0 10 0 0" />
+                                <TextBlock Text="{Binding Country}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Phone}" HorizontalAlignment="Center"/>
+
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
